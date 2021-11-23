@@ -34,7 +34,7 @@ if [ ${CHKSGNOK} == 0 ] || [ ${CHKOUTPUT} == 1 ];
     if [ ! -f outputmain.tf.disable ] ;then mv outputmain.tf outputmain.tf.disable; fi
     if [ -f sg-ok.tf ]; then rm sg-ok.tf; fi
 
-
+    read 
     # RODA O TERRAFORM PARA CRIAR OS SG
     terraform init
     terraform apply -auto-approve
