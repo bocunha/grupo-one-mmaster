@@ -1,0 +1,63 @@
+# ---
+- hosts:
+  - ec2-k8s-m1
+  tasks:
+    - name: "Configura hostname k8s-master 1"
+      become: yes
+      ansible.builtin.hostname:
+        name: "k8s-master-1"
+# ---
+- hosts:
+  - ec2-k8s-m2
+  tasks:
+    - name: "Configura hostname k8s-master 2"
+      become: yes
+      ansible.builtin.hostname:
+        name: "k8s-master-2"
+# ---
+- hosts:
+  - ec2-k8s-m3
+  tasks:
+    - name: "Configura hostname k8s-master 3"
+      become: yes
+      ansible.builtin.hostname:
+        name: "k8s-master-3"
+# ---
+- hosts:
+  - ec2-k8s-w1
+  tasks:
+    - name: "Configura hostname k8s-workers 1"
+      become: yes
+      ansible.builtin.hostname:
+        name: "k8s-workers-1"
+# ---
+- hosts:
+  - ec2-k8s-w2
+  tasks:
+    - name: "Configura hostname k8s-workers 2"
+      become: yes
+      ansible.builtin.hostname:
+        name: "k8s-workers-2"
+# ---
+- hosts:
+  - ec2-k8s-w3
+  tasks:
+    - name: "Configura hostname k8s-workers 3"
+      become: yes
+      ansible.builtin.hostname:
+        name: "k8s-workers-3"
+
+- hosts:
+  - ec2-k8s-m1
+  become: yes
+  tasks:    
+    - name: "Reset cluster"
+      shell: "kubeadm reset -f"
+
+    - shell: "kubeadm init --control-plane-endpoint 'k8s-haproxy:6443' --upload-certs"
+      register: ps
+    - debug:
+        msg: " '{{ ps.stdout_lines }}' "
+
+    - name: "Colocando no path da maquina o conf do kubernetes"
+      shell: "mkdir -p $HOME/.kube && sudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config && sudo chown $(id -u):$(id -g) $HOME/.kube/config && export KUBECONFIG=/etc/kubernetes/admin.conf"

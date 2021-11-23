@@ -1,0 +1,52 @@
+- hosts:
+  - ec2-k8s-proxy
+  handlers:
+    - name: "restart haproxy"
+      service:
+        name: haproxy
+        state: restarted
+      become: yes
+
+  tasks:
+    - name: "Configura hostname haproxy"
+      become: yes
+      ansible.builtin.hostname:
+        name: "k8s-proxy"
+    
+    - name: "Roda: sudo apt-get update"
+      become: yes
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400 #Um dia
+
+    - name: "Instala pacotes"
+      apt:
+        name: "{{ item }}"
+        state: latest
+      become: yes # roda com sudo
+      with_items:
+        - haproxy
+
+    - name: "Trocando haproxy"
+      copy:
+        src: "haproxy/haproxy.cfg"
+        dest: "/etc/haproxy/haproxy.cfg"
+      become: yes
+      notify:
+        - "restart haproxy"
+# ---
+- hosts:
+  - ec2-k8s-m1
+  - ec2-k8s-m3
+  - ec2-k8s-m2
+  - ec2-k8s-w1
+  - ec2-k8s-w2
+  - ec2-k8s-w3
+
+  tasks:
+    - name: "Host para o haproxy"
+      copy:
+        src: "host/hosts"
+        dest: "/etc/hosts"
+      become: yes
