@@ -12,9 +12,9 @@ cd $TFPATH/2-ansible/01-k8s-install-masters_e_workers
 ID_M1_DNS=`awk '/IP k8s-master azc1 -/ {print $8}' $TFPATH/tmp/tfoutput.tmp | cut -d"@" -f2`
 
 echo "STATUS DOS NODES"
-GETNODES=$(ssh -i ${CHAVESSH} ubuntu@${ID_M1_DNS} 'sudo kubectl get nodes' | grep -i ready)
+GETNODES=$(ssh -i ${CHAVESSH} ubuntu@${ID_M1_DNS} 'sudo kubectl get nodes' | grep -i ready | wc -l )
 
-if [[ $GETNDOES -eq 6 ]]
+if [[ $GETNODES -eq 6 ]]
 then 
     echo "::::: server está no ar :::::"
     exit 0
