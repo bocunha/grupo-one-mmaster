@@ -1,4 +1,4 @@
-#!/bin/bash -vx
+#!/bin/bash
 ## VARIAVEIS
 TFPATH="$PWD"
 CHKSGNOK=`grep "sg" $TFPATH/0-terraform/sg-ok.tf | wc -l`

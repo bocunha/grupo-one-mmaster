@@ -1,4 +1,4 @@
-#!/bin/bash -vx
+#!/bin/bash
 ## VARIAVEIS
 TFPATH="$PWD"
 CHKSGNOK=`grep "sg" $TFPATH/0-terraform/sg-ok.tf | wc -l`
@@ -8,12 +8,12 @@ AMIID="cat /tmp/k8s-ami-id.tmp"
 
 #PEGA O ESTADO DO TERRAFORM
 cd $TFPATH/2-ansible/01-k8s-install-masters_e_workers
-
+read 
 ANSIBLE_OUT=$(ansible-playbook -i hosts kubernetes.yml -u ubuntu --private-key ${CHAVESSH})
 
 # RETIRA A CHAVE DO K8S PARA FAZER OS JOINS
-K8S_JOIN_MASTER=$(echo $ANSIBLE_OUT | grep -oP "(kubeadm join.*?certificate-key.*?)'" | sed 's/\\//g' | sed "s/', u't//g" | sed "s/'$//g" )
-K8S_JOIN_WORKER=$(echo $ANSIBLE_OUT | grep -oP "(kubeadm join.*?discovery-token-ca-cert-hash.*?)'" | head -n 1 | sed 's/\\//g' | sed "s/', u't//g" | sed "s/ '$//g")
+K8S_JOIN_MASTER=$(echo $ANSIBLE_OUT | grep -oP "(kubeadm join.*?certificate-key.*?)'" | sed 's/\\//g' | sed "s/'.*'t//g" | sed "s/'$//g" )
+K8S_JOIN_WORKER=$(echo $ANSIBLE_OUT | grep -oP "(kubeadm join.*?discovery-token-ca-cert-hash.*?)'" | head -n 1 | sed 's/\\//g' | sed "s/'.*'t//g" | sed "s/ '$//g")
 
 echo "CHAVA PARA JOIN DOS MASTERS"
 echo $K8S_JOIN_MASTER

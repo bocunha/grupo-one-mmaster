@@ -34,7 +34,7 @@ if [ ${CHKSGNOK} == 0 ] || [ ${CHKOUTPUT} == 1 ];
     if [ ! -f outputmain.tf.disable ] ;then mv outputmain.tf outputmain.tf.disable; fi
     if [ -f sg-ok.tf ]; then rm sg-ok.tf; fi
 
-    read 
+ 
     # RODA O TERRAFORM PARA CRIAR OS SG
     terraform init
     terraform apply -auto-approve
@@ -81,8 +81,6 @@ CHKTFOUTPUT=$(terraform output | wc -l)
 if [ ${CHKTFOUTPUT} -eq 26 ]; 
   then
   echo "PIPELINE EXECUTADA COM SUCESSO"
-  cd $TFPATH/0-terraform/
-  cp sg-nok.tf.bkp sg-nok.tf
   exit 0
   else
   echo "PIPELINE FALHOU"
