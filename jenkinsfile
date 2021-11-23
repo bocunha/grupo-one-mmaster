@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+    
+    def autoCancelled = false
+
+    parameters {
+        string(name: 'DECISION', defaultValue: 'deploy', description: 'Defina se voce quer rodar o deploy ou destroy da infra')
+        choice(name: 'DECISION', choices: ['deploy', 'destroy'])
+    }
+
+    stages {
+        stage('Clone do Repositório') {
+            steps {
+                git url: 'https://github.com/bocunha/grupo-one-mmaster.git', branch: 'main'
+            }
+        }
+
+        stage('Provisionando Máquinas Terraform') {
+        if (env.DECISION == 'destroy') {
+            sh "./destroy.sh"
+            currentBuild.result = 'SUCCESS'
+            return
+        } else {
+            sh "./deploy.sh"
+        }
+        }
+
+        stage('Criando Hosts Ansible') {
+            steps {
+                sh "./hosts_ansible.sh"
+            }
+        }
+        stage('Configurando HaProxy') {
+            steps {
+                sh "./haproxy.sh"
+            }
+        }
+        stage('Configura Cluster Kubernets') {
+            steps {
+                sh "./k8s.sh"
+            }
+        }
+        stage('Testa Provisionamento') {
+            steps {
+                sh "./test.sh"
+            }
+        }
+    }
+}
