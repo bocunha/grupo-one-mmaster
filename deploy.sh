@@ -79,13 +79,11 @@ sleep 10
 
 CHKTFOUTPUT=$(terraform output | wc -l)
 
-cd $TFPATH/0-terraform/
-cp sg-nok.tf.bkp sg-nok.tf
-
-
 if [ ${CHKTFOUTPUT} -eq 26 ]; 
   then
   echo "PIPELINE EXECUTADA COM SUCESSO"
+  cd $TFPATH/0-terraform/
+  cp sg-nok.tf.bkp sg-nok.tf
   exit 0
   else
   echo "PIPELINE FALHOU"
