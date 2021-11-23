@@ -12,8 +12,8 @@ read
 ANSIBLE_OUT=$(ansible-playbook -i hosts kubernetes.yml -u ubuntu --private-key ${CHAVESSH})
 
 # RETIRA A CHAVE DO K8S PARA FAZER OS JOINS
-K8S_JOIN_MASTER=$(echo $ANSIBLE_OUT | grep -oP "(kubeadm join.*?certificate-key.*?)'" | sed 's/\\//g' | sed "s/'.*'t//g" | sed "s/'$//g" )
-K8S_JOIN_WORKER=$(echo $ANSIBLE_OUT | grep -oP "(kubeadm join.*?discovery-token-ca-cert-hash.*?)'" | head -n 1 | sed 's/\\//g' | sed "s/'.*'t//g" | sed "s/ '$//g")
+K8S_JOIN_MASTER=$(echo $ANSIBLE_OUT | grep -oP "(kubeadm join.*?certificate-key.*?)'" | sed 's/\\//g' | sed "s/', 't//g" | sed "s/'$//g" )
+K8S_JOIN_WORKER=$(echo $ANSIBLE_OUT | grep -oP "(kubeadm join.*?discovery-token-ca-cert-hash.*?)'" | head -n 1 | sed 's/\\//g' | sed "s/', 't//g" | sed "s/ '$//g")
 
 echo "CHAVA PARA JOIN DOS MASTERS"
 echo $K8S_JOIN_MASTER
