@@ -9,7 +9,6 @@ AMIID=`cat /tmp/k8s-ami-id.tmp`
 rm $TFPATH/tmp/tf*.tmp
 
 
-
 #PEGA O ESTADO DO TERRAFORM
 cd $TFPATH/0-terraform/
 
