@@ -84,7 +84,7 @@ resource "aws_security_group" "acessos_masters" {
   ]
 
   tags = {
-    Name = "allow_ssh"
+    Name = "grupo-one-k8s-acessos_masters"
   }
 }
 
@@ -159,7 +159,7 @@ resource "aws_security_group" "acessos_haproxy" {
   ]
 
   tags = {
-    Name = "allow_haproxy_ssh"
+    Name = "grupo-one-k8s-haproxy"
   }
 }
 
@@ -221,6 +221,6 @@ resource "aws_security_group" "acessos_workers" {
   ]
 
   tags = {
-    Name = "allow_ssh"
+    Name = "grupo-one-k8s-workers"
   }
 }

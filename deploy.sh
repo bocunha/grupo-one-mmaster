@@ -2,7 +2,7 @@
 ## VARIAVEIS
 TFPATH="$PWD"
 CHKSGNOK=`grep "sg" $TFPATH/0-terraform/sg-ok.tf | wc -l`
-CHAVESSH="~/.ssh/grupo-one.pem"
+CHAVESSH="/var/lib/jenkins/.ssh/grupo-one.pem"
 AMIID=`cat /tmp/k8s-ami-id.tmp`
 ###########################
 #LIMPA TEMPORARIOS
@@ -29,6 +29,7 @@ CHKOUTPUT=`grep -i "No outputs found" $TFPATH/tmp/tfoutput.tmp | wc -l`
 if [ ${CHKSGNOK} == 0 ] || [ ${CHKOUTPUT} == 1 ]; 
   then 
     # PREPARA OS ARQUIVOS PARA RODAR SOMENTE SG
+    cd $TFPATH/0-terraform/
     cp sg-nok.tf sg-nok.tf.bkp
     if [ ! -f mainv2.tf.disable ] ;then mv mainv2.tf mainv2.tf.disable; fi
     if [ ! -f outputmain.tf.disable ] ;then mv outputmain.tf outputmain.tf.disable; fi
@@ -75,6 +76,21 @@ fi
 
 echo  "Aguardando a criação das maquinas ..."
 sleep 10
+
+CHKTFOUTPUT=$(terraform output | wc -l)
+
+cd $TFPATH/0-terraform/
+cp sg-nok.tf.bkp sg-nok.tf
+
+
+if [ ${CHKTFOUTPUT} -eq 26 ]; 
+  then
+  echo "PIPELINE EXECUTADA COM SUCESSO"
+  exit 0
+  else
+  echo "PIPELINE FALHOU"
+  exit 1
+fi
 
 ##########################################
 #SEGUE PARA O SCRIPT HOSTS
