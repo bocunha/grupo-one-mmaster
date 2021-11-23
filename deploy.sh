@@ -1,6 +1,6 @@
 #!/bin/bash -vx
 ## VARIAVEIS
-TFPATH="/home/ec2-user/k8s-multi-master/0-k8s"
+TFPATH="$PWD"
 CHKSGNOK=`grep "sg" $TFPATH/0-terraform/sg-ok.tf | wc -l`
 CHAVESSH="~/.ssh/grupo-one.pem"
 AMIID=`cat /tmp/k8s-ami-id.tmp`
