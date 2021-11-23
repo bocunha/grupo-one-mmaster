@@ -8,12 +8,23 @@ AMIID=`cat /tmp/k8s-ami-id.tmp`
 #LIMPA TEMPORARIOS
 rm $TFPATH/tmp/tf*.tmp
 
+
+
 #PEGA O ESTADO DO TERRAFORM
 cd $TFPATH/0-terraform/
+
+CHKTFOUTPUT=$(terraform output | wc -l)
+
+if [ ${CHKTFOUTPUT} -eq 26 ]; 
+  then
+  echo "PIPELINE JA RODOU FAVOR DESTRUIR MANUALMENTE"
+  exit 1
+fi
+
 terraform init
 terraform output > $TFPATH/tmp/tfoutput.tmp
 CHKOUTPUT=`grep -i "No outputs found" $TFPATH/tmp/tfoutput.tmp | wc -l`
-
+ 
 ### RODA PRA CRIAR OS SECURITY GROUPS E SALVAR OS IDs
 if [ ${CHKSGNOK} == 0 ] || [ ${CHKOUTPUT} == 1 ]; 
   then 
@@ -21,7 +32,8 @@ if [ ${CHKSGNOK} == 0 ] || [ ${CHKOUTPUT} == 1 ];
     cp sg-nok.tf sg-nok.tf.bkp
     if [ ! -f mainv2.tf.disable ] ;then mv mainv2.tf mainv2.tf.disable; fi
     if [ ! -f outputmain.tf.disable ] ;then mv outputmain.tf outputmain.tf.disable; fi
-    if [ -f sg.ok.tf ]; then rm sg.ok.tf; fi
+    if [ -f sg-ok.tf ]; then rm sg-ok.tf; fi
+
 
     # RODA O TERRAFORM PARA CRIAR OS SG
     terraform init
@@ -53,9 +65,9 @@ if [ -f mainv2.tf.disable ] ;then mv mainv2.tf.disable mainv2.tf; fi
 if [ -f outputmain.tf.disable ] ;then mv outputmain.tf.disable outputmain.tf; fi
 
 cd $TFPATH/0-terraform/
-CHKREFRESH=$(terraform refresh | wc -l)
+CHKTFOUTPUT=$(terraform output | wc -l)
 
-if [ ${CHKSGNOK} -eq 5 ] && [ ${CHKREFRESH} -lt 15 ]; 
+if [ ${CHKSGNOK} -eq 5 ] && [ ${CHKTFOUTPUT} -lt 20 ]; 
   then
     terraform init
     TF_VAR_amiid=$AMIID terraform apply -auto-approve

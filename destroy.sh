@@ -12,4 +12,4 @@ cp sg-nok.tf.bkp sg-nok.tf
 terraform init
 TF_VAR_amiid=$AMIID terraform apply -auto-approve
 sleep 5
-TF_VAR_amiid=$AMIID terraform terraform destroy -auto-approve
+TF_VAR_amiid=$AMIID terraform destroy -auto-approve
