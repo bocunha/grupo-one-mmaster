@@ -44,6 +44,12 @@ ID_W3=`awk '/IP k8s-workers azc3 -/ {print $5}' $TFPATH/tmp/tfoutput.tmp`
 ID_W3_DNS=`awk '/IP k8s-workers azc3 -/ {print $8}' $TFPATH/tmp/tfoutput.tmp | cut -d"@" -f2`
 
 
+echo "
+ID_M1_DNS=${ID_M1_DNS}
+ID_M2_DNS=${ID_M2_DNS}
+ID_M3_DNS=${ID_M3_DNS}
+" > $TFPATH/k8s-nginx-frontend/02-ansible/ipsmaster.txt
+
 # COLOCA A INFRMACAO DOS IPS NO HOSTS DO ANSIBLE
 echo "
 [ec2-k8s-proxy]
