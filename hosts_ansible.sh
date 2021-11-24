@@ -10,7 +10,7 @@ cd $TFPATH/0-terraform/
 
 CHKTFOUTPUT=$(terraform output | wc -l)
 
-if [ ${CHKTFOUTPUT} -lt 26 ]; 
+if [ ${CHKTFOUTPUT} -lt 25 ]; 
   then
   echo "TERRAFORM INCOMPLETO OU DESTRUIDO"
   exit 1
