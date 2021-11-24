@@ -24,7 +24,7 @@ As metas que deseja alcançar são:
 
 ## 🚀 Tecnologias
 
-Tecnologias que utilizamos para desenvolver esta API Rest:
+Tecnologias que utilizamos para desenvolver o sistema:
 
 - [Terraform](https://www.terraform.io)
 - [Ansible](https://www.ansible.com)
@@ -50,6 +50,7 @@ Tecnologias que utilizamos para desenvolver esta API Rest:
 **Atualização das informações nos códigos**
 
 Edite o arquivo **"0-terraform/mainv2.tf"** com as configurações da instancia presente em sua EC2:
+- Alterar região para a qual está sua instância;
 - Alterar ID de cada subnet;
 - Alterar ID da AMI de uma máquina de desenvolvimento e suas especificações;
 
