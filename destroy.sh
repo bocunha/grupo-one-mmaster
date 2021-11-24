@@ -12,7 +12,7 @@ cp sg-nok.tf.bkp sg-nok.tf
 
 CHKTFOUTPUT=$(terraform output | wc -l)
 
-if [ ${CHKTFOUTPUT} -lt 26 ]; 
+if [ ${CHKTFOUTPUT} -eq 26 ]; 
   then
   terraform init
   TF_VAR_amiid=$AMIID terraform apply -auto-approve
