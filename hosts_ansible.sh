@@ -6,6 +6,16 @@ CHAVESSH="/var/lib/jenkins/.ssh/grupo-one.pem"
 AMIID="cat /tmp/k8s-ami-id.tmp"
 ###########################
 
+cd $TFPATH/0-terraform/
+
+CHKTFOUTPUT=$(terraform output | wc -l)
+
+if [ ${CHKTFOUTPUT} -lt 26 ]; 
+  then
+  echo "TERRAFORM INCOMPLETO OU DESTRUIDO"
+  exit 1
+fi
+
 #PEGA O ESTADO DO TERRAFORM
 cd $TFPATH/0-terraform/
 

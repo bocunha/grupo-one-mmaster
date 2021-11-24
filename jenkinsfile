@@ -13,33 +13,41 @@ pipeline {
             }
         }
 
-        stage('Pipeline Infra') {
+        stage('Provisionando Máquinas Terraform') {
             steps {
                 script {
                     if (DECISION.equals("destroy")){
-                        stage ('Provisionando Máquinas Terraform') {
-                        sh "./destroy.sh"
-                        }
+                        stage ('destroy') {
+                            sh "./destroy.sh"
+                            }
                     } else {
-                        stage ('Removendo Máquinas Terraform') {
+                        stage ('deploy') {
                             sh "./deploy.sh" 
-                        }
-                        stage('Criando Hosts Ansible') {
-                            sh "./hosts_ansible.sh"
-                        }
-                        stage('Configurando HaProxy') {
-                            sh "./haproxy.sh"
-                        }
-                        stage('Configura Cluster Kubernets') {
-                            sh "./k8s.sh"
-                        }
-                        stage('Testa Provisionamento') {
-                            sh "./test.sh"
                         }
                     }
                 }
+          }
+    }
+    
+        stage('Criando Hosts Ansible') {
+            steps {
+                sh "./hosts_ansible.sh"
+            }
+        }
+        stage('Configurando HaProxy') {
+            steps {
+                sh "./haproxy.sh"
+            }
+        }
+        stage('Configura Cluster Kubernets') {
+            steps {
+                sh "./k8s.sh"
+            }
+        }
+        stage('Testa Provisionamento') {
+            steps {
+                sh "./test.sh"
             }
         }
     }
 }
-    

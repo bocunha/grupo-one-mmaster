@@ -30,6 +30,9 @@ cat <<EOF > 2-provisionar-k8s-master-auto-shell.yml
     - name: "Reset cluster"
       shell: "kubeadm reset -f"
 
+    - name: Espera 30 segundos
+      wait_for: timeout=30
+      
     - name: "Fazendo join kubernetes master"
       shell: '$K8S_JOIN_MASTER'
 
