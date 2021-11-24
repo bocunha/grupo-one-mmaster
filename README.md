@@ -1,5 +1,5 @@
 <h3 align="center">
-  Pomalabs Web
+  Programa de Desenvolvimento Itaú 2.0 - DevOps
 </h3>
 
 ## 👨🏻‍💻 Sobre o projeto
@@ -62,4 +62,4 @@ Edite o arquivo **jenkinsfile**:
 Agora, só basta rodar a esteira de deploy no Jenkins e tudo pronto!
 
 ## ⚙️ Aplicação
-A aplicaçã0 [spring-web-youtube](https://github.com/torneseumprogramador/spring-web-youtube/tree/deploy-docker) se trata de um sistema monolito simples onde contém uma área administrativa para administrar o CRUD de administradores(login, senha, cadastros).
+A aplicação [spring-web-youtube](https://github.com/torneseumprogramador/spring-web-youtube/tree/deploy-docker) se trata de um sistema monolito simples onde contém uma área administrativa para administrar o CRUD de administradores(login, senha, cadastros).
