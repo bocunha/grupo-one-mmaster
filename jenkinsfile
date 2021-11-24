@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-        string(name: 'DECISION', defaultValue: 'deploy', description: 'Defina se voce quer rodar o deploy ou destroy da infra')
+        string(name: 'DECISION', defaultValue: 'deploy', description: 'Decidir se sera deploy ou destroy [deploy]')
         choice(name: 'DECISION', choices: ['deploy', 'destroy'])
     }
 
@@ -14,25 +14,28 @@ pipeline {
         }
 
         stage('Provisionando Máquinas Terraform') {
-            if ( ${DECISION} == 'destroy') {
-             steps {
-                sh "./destroy.sh"
-                currentBuild.result = 'SUCCESS'
-                return
-             }
-            } else {
-             steps{
-                sh "./deploy.sh"
-             }
-            }
-            }
-
+            steps {
+                script {
+                    if (DECISION.equals("destroy")){
+                        stage ('destroy') {
+                            sh "./destroy.sh"
+                            currentBuild.result = 'SUCCESS'
+                            return
+                        }
+                    } else {
+                        stage ('deploy') {
+                            sh "./deploy.sh" 
+                        }
+                    }
+                }
+          }
+    }
+    
         stage('Criando Hosts Ansible') {
             steps {
                 sh "./hosts_ansible.sh"
             }
         }
-
         stage('Configurando HaProxy') {
             steps {
                 sh "./haproxy.sh"
