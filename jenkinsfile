@@ -18,39 +18,39 @@ pipeline {
                 script {
                     if (DECISION.equals("destroy")){
                         stage ('destroy') {
-                            sh "./destroy.sh"
-                            currentBuild.result = 'SUCCESS'
-                            skipRemainingStages = true
-                            return
+                        sh "./destroy.sh"
+                        currentBuild.rawBuild.result = Result.ABORTED
+                        throw new hudson.AbortException('Guess what!')
+                        echo 'Further code will not be executed'
                         }
                     } else {
                         stage ('deploy') {
-                            sh "./deploy.sh" 
+                        sh "./deploy.sh" 
+                        }
+                      stage('Criando Hosts Ansible') {
+                            steps {
+                                sh "./hosts_ansible.sh"
+                            }
+                        }
+                        stage('Configurando HaProxy') {
+                            steps {
+                                sh "./haproxy.sh"
+                            }
+                        }
+                        stage('Configura Cluster Kubernets') {
+                            steps {
+                                sh "./k8s.sh"
+                            }
+                        }
+                        stage('Testa Provisionamento') {
+                            steps {
+                                sh "./test.sh"
+                            }
                         }
                     }
                 }
-          }
-    }
-    
-        stage('Criando Hosts Ansible') {
-            steps {
-                sh "./hosts_ansible.sh"
-            }
-        }
-        stage('Configurando HaProxy') {
-            steps {
-                sh "./haproxy.sh"
-            }
-        }
-        stage('Configura Cluster Kubernets') {
-            steps {
-                sh "./k8s.sh"
-            }
-        }
-        stage('Testa Provisionamento') {
-            steps {
-                sh "./test.sh"
             }
         }
     }
 }
+    
