@@ -5,7 +5,7 @@
 ## 👨🏻‍💻 Sobre o projeto
 
 O objetivo do projeto é de aplicar e exercitar os conhecimentos adquiridos através do **Programa de Desenvolvimento Itaú 2.0** aplicado pela **Gama Academy**.
-As metas que deseja alcançar são:
+As metas que deseja-se alcançar são:
 
 - Criação de uma pipeline de infraestrutura para provisionar uma imagem que será utilizada em um cluster kubernetes(single master);
 - Criação de uma pipeline para provisionar um cluster multi master utilizando a imagem criada na pipeline de infraestrutura;
