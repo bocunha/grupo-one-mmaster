@@ -51,7 +51,7 @@ Tecnologias que utilizamos para desenvolver o sistema:
 
 Edite o arquivo **"0-terraform/mainv2.tf"** com as configurações da instancia presente em sua EC2:
 - Alterar região para a qual está sua instância;
-- Alterar ID de cada subnet;
+- Alterar ID de cada subnet e VPC;
 - Alterar ID da AMI de uma máquina de desenvolvimento e suas especificações;
 
 Edite on arquivos **.sh**:
