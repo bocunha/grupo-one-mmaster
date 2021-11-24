@@ -20,6 +20,7 @@ pipeline {
                         stage ('destroy') {
                             sh "./destroy.sh"
                             currentBuild.result = 'SUCCESS'
+                            skipRemainingStages = true
                             return
                         }
                     } else {
