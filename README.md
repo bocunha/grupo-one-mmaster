@@ -63,6 +63,13 @@ Agora, só basta rodar a esteira de deploy no Jenkins.
 
 Depois da criação das máquinas, só é necessário entrar em cada um dos workers e criar o banco de dados do MySQL e tudo pronto!
 
+```
+create database <NOME>;
+ALTER USER 'root'@'%' IDENTIFIED BY '<SENHA>';
+CREATE USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '<SENHA>';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
+FLUSH PRIVILEGES;
+```
 
 ## ⚙️ Aplicação
 A aplicação [spring-web-youtube](https://github.com/torneseumprogramador/spring-web-youtube/tree/deploy-docker) se trata de um sistema monolito simples onde contém uma área administrativa para administrar o CRUD de administradores(login, senha, cadastros).

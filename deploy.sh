@@ -7,7 +7,7 @@ AMIID=`cat /tmp/k8s-ami-id.tmp`
 ###########################
 #LIMPA TEMPORARIOS
 rm $TFPATH/tmp/tf*.tmp
-
+echo "A AMI UTILIZADA E ${AMIID}"
 
 #PEGA O ESTADO DO TERRAFORM
 cd $TFPATH/0-terraform/

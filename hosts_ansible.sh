@@ -72,5 +72,14 @@ $ID_W3_DNS
 " > $TFPATH/2-ansible/01-k8s-install-masters_e_workers/hosts
 
 cat $TFPATH/2-ansible/01-k8s-install-masters_e_workers/hosts
+
+
+
+echo "
+ID_M1_DNS=${ID_M1_DNS}
+ID_M2_DNS=${ID_M2_DNS}
+ID_M3_DNS=${ID_M3_DNS}
+" > /tmp/ipmasters.tmp
+
 ####################
 ### SEGUE PARA O SCRIPT haproxy.sh
