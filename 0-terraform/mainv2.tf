@@ -14,7 +14,7 @@ variable "amiid" {
 resource "aws_instance" "k8s_proxy" {
   subnet_id     = "subnet-0958c1cc0f3c9b493"
   ami                         = "ami-0e66f5495b4efdd0f" #ubuntu
-  instance_type = "t2.micro"
+  instance_type = "t2.medium"
   key_name = "grupo-one"
   tags = {
     Name = "k8s-haproxy-gpone"
