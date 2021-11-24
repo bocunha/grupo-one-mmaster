@@ -14,7 +14,7 @@ ID_M1_DNS=`awk '/IP k8s-master azc1 -/ {print $8}' $TFPATH/tmp/tfoutput.tmp | cu
 echo "STATUS DOS NODES"
 GETNODES=$(ssh -i ${CHAVESSH} ubuntu@${ID_M1_DNS} 'sudo kubectl get nodes' | grep -i ready | wc -l )
 
-echo $GETNODES 
+ssh -i ${CHAVESSH} ubuntu@${ID_M1_DNS} 'sudo kubectl get nodes'
 
 if [[ $GETNODES -eq 6 ]]
 then 
