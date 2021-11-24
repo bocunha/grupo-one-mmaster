@@ -1,7 +1,5 @@
 pipeline {
     agent any
-    
-    def autoCancelled = false
 
     parameters {
         string(name: 'DECISION', defaultValue: 'deploy', description: 'Defina se voce quer rodar o deploy ou destroy da infra')
@@ -16,13 +14,13 @@ pipeline {
         }
 
         stage('Provisionando Máquinas Terraform') {
-        if (env.DECISION == 'destroy') {
-            sh "./destroy.sh"
-            currentBuild.result = 'SUCCESS'
-            return
-        } else {
-            sh "./deploy.sh"
-        }
+            if (env.DECISION == 'destroy') {
+                sh "./destroy.sh"
+                currentBuild.result = 'SUCCESS'
+                return
+            } else {
+                sh "./deploy.sh"
+            }
         }
 
         stage('Criando Hosts Ansible') {
