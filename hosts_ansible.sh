@@ -55,5 +55,6 @@ $ID_W3_DNS
 
 " > $TFPATH/2-ansible/01-k8s-install-masters_e_workers/hosts
 
+cat $TFPATH/2-ansible/01-k8s-install-masters_e_workers/hosts
 ####################
 ### SEGUE PARA O SCRIPT haproxy.sh
