@@ -6,6 +6,7 @@ CHAVESSH="/var/lib/jenkins/.ssh/grupo-one.pem"
 AMIID="cat /tmp/k8s-ami-id.tmp"
 ###########################
 
+sleep 20 
 ID_M1=`awk '/IP k8s-master azc1 -/ {print $5}' $TFPATH/tmp/tfoutput.tmp`
 ID_M1_DNS=`awk '/IP k8s-master azc1 -/ {print $8}' $TFPATH/tmp/tfoutput.tmp | cut -d"@" -f2`
 

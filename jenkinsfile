@@ -14,20 +14,25 @@ pipeline {
         }
 
         stage('Provisionando Máquinas Terraform') {
-            if (env.DECISION == 'destroy') {
+            if ( ${DECISION} == 'destroy') {
+             steps {
                 sh "./destroy.sh"
                 currentBuild.result = 'SUCCESS'
                 return
+             }
             } else {
+             steps{
                 sh "./deploy.sh"
+             }
             }
-        }
+            }
 
         stage('Criando Hosts Ansible') {
             steps {
                 sh "./hosts_ansible.sh"
             }
         }
+
         stage('Configurando HaProxy') {
             steps {
                 sh "./haproxy.sh"
