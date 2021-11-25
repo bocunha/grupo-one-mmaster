@@ -36,6 +36,9 @@ cat <<EOF > 2-provisionar-k8s-master-auto-shell.yml
     - name: "Fazendo join kubernetes master"
       shell: '$K8S_JOIN_MASTER'
 
+    - name: Espera 30 segundos
+      wait_for: timeout=15
+
     - name: "Colocando no path da maquina o conf do kubernetes"
       shell: mkdir -p $HOME/.kube && sudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config && sudo chown $(id -u):$(id -g) $HOME/.kube/config && export KUBECONFIG=/etc/kubernetes/admin.conf
 #---
