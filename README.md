@@ -59,7 +59,7 @@ Edite on arquivos **.sh**:
 Edite o arquivo **jenkinsfile**:
 - Alterar URL do projeto do Git que está usando no estágio "Clone do Repositório";
 
-Agora, só basta rodar a esteira de deploy no Jenkins.
+Agora, só basta criar uma esteira de deploy no Jenkins usando os passos descritos no arquivo "jenkinsfile".
 
 Depois da criação das máquinas, só é necessário entrar em cada um dos workers e criar o banco de dados do MySQL e tudo pronto!
 
