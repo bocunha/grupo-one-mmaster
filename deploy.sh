@@ -29,7 +29,7 @@ if [ ${CHKSGNOK} == 0 ] || [ ${CHKOUTPUT} == 1 ];
   then 
     # PREPARA OS ARQUIVOS PARA RODAR SOMENTE SG
     cd $TFPATH/0-terraform/
-    if [ ! -f sg-nok.tf ] ;then cp sg-nok.tf.bkp sg-nok.tf.bkp; fi
+    if [ ! -f sg-nok.tf ] ;then cp sg-nok.tf.bkp sg-nok.tf; fi
     cp sg-nok.tf sg-nok.tf.bkp
     if [ ! -f mainv2.tf.disable ] ;then mv mainv2.tf mainv2.tf.disable; fi
     if [ ! -f outputmain.tf.disable ] ;then mv outputmain.tf outputmain.tf.disable; fi
