@@ -80,25 +80,6 @@ sleep 10
 CHKTFOUTPUT=$(terraform output | wc -l)
 
 
-echo "127.0.0.1 localhost
-${ID_M1_DNS} master1
-${ID_M2_DNS} master2
-${ID_M3_DNS} master3
-
-
-# The following lines are desirable for IPv6 capable hosts
-::1 ip6-localhost ip6-loopback
-fe00::0 ip6-localnet
-ff00::0 ip6-mcastprefix
-ff02::1 ip6-allnodes
-ff02::2 ip6-allrouters
-ff02::3 ip6-allhosts
-" > $TFPATH/tmp/hostsnginx.tmp
-
-scp -i ${CHAVESSH} $TFPATH/tmp/hostsnginx.tmp root@ec2-18-231-181-242.sa-east-1.compute.amazonaws.com:/etc/hosts
-
-
-
 if [ ${CHKTFOUTPUT} -eq 26 ]; 
   then
   echo "PIPELINE EXECUTADA COM SUCESSO"
