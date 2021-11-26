@@ -10,7 +10,6 @@ As metas que deseja-se alcançar são:
 - Criação de uma pipeline de infraestrutura para provisionar uma imagem que será utilizada em um cluster kubernetes(single master);
 - Criação de uma pipeline para provisionar um cluster multi master utilizando a imagem criada na pipeline de infraestrutura;
 - Criação de uma pipeline para provisionar o banco de dados (dev, stage, prod) que será utilizado nas aplicações que estarão no kubernetes. Esta base de dados, será provisionada em uma instância privada, com acesso a Internet via Nat Gateway na mesma vpc do kubernetes multi master;
-- Criação de uma pipeline de desenvolvimento para deployar os ambientes de uma aplicação Java (dev, stage, prod) com ligação a um banco de dados mysql-server (utilizar o cluster kubernetes(multi master) provisionado pela pipeline de infraestrutura.
 
 <p style="color: red;">Todo processo será feito via código e console.</p>
 
@@ -61,7 +60,7 @@ Edite o arquivo **jenkinsfile**:
 
 Agora, só basta criar uma esteira de deploy no Jenkins usando os passos descritos no arquivo "jenkinsfile".
 
-Depois da criação das máquinas, só é necessário entrar em cada um dos workers e criar o banco de dados do MySQL e tudo pronto!
+Depois da criação das máquinas, ainda é necessário que se provisione um servidor para uso como banco de dados. Assim, instalar o MySQL Server e criar o banco!
 
 ```
 create database <NOME>;
