@@ -82,9 +82,9 @@ ID_M3_DNS=${ID_M3_DNS}
 " > /tmp/ipmasters.tmp
 
 echo "127.0.0.1 localhost
-${ID_M1_DNS} master1
-${ID_M2_DNS} master2
-${ID_M3_DNS} master3
+${ID_M1} master1
+${ID_M2} master2
+${ID_M3} master3
 
 
 # The following lines are desirable for IPv6 capable hosts
@@ -97,7 +97,7 @@ ff02::3 ip6-allhosts
 " > $TFPATH/tmp/hostsnginx.tmp
 
 scp -i ${CHAVESSH} $TFPATH/tmp/hostsnginx.tmp root@ec2-18-231-181-242.sa-east-1.compute.amazonaws.com:/etc/hosts
-
+ssh -i ${CHAVESSH} root@ec2-18-231-181-242.sa-east-1.compute.amazonaws.com 'systemctl restart nginx'
 
 ####################
 ### SEGUE PARA O SCRIPT haproxy.sh
